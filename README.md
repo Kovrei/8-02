@@ -22,3 +22,9 @@
 **<ins>My finish resultat<ins>**
 
 ![alt text](https://raw.githubusercontent.com/Kovrei/8-02/main/screenshots/2.2-finish.PNG)
+
+## Mision 2
+
+**<ins>It is my trubble:  <ins>**
+
+![alt text](https://raw.githubusercontent.com/Kovrei/8-02/main/screenshots/3.1%20truble.PNG)
