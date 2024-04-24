@@ -44,8 +44,41 @@
 4. Загрузите файл в репозиторий с помощью jenkins.  
 В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
 
-**<ins>It is my trubble:
-docker: Error response from daemon: driver failed programming external connectivity on endpoint nexus (9a430ad65fe204d53bf221b39d4d1e865d149474166d17016e9c2553991d1264): 
-Error starting userland proxy: listen tcp4 84.201.157.43:8082: bind: cannot assign requested address.<ins>**
+**<ins>My repository in Nexus<ins>**
 
-![alt text](https://raw.githubusercontent.com/Kovrei/8-02/main/screenshots/3.1%20truble.PNG)
+![alt text](https://raw.githubusercontent.com/Kovrei/8-02/main/screenshots/nxs_http.PNG)
+
+**<ins>Pipline<ins>**
+
+```java
+pipeline {
+    agent any
+    stages {
+        stage('Git clone') {
+            steps {
+                git 'https://github.com/netology-code/sdvps-materials.git'
+            }
+        }
+        stage('Run tests') {
+            steps {
+                sh '/usr/local/go/bin/go test .'
+            }
+        }
+        stage('Go build app and curl upload file in Nexus to repo') {
+            steps {
+                sh 'CGO_ENABLED=0 GOOS=linux /usr/local/go/bin/go build -a -installsuffix nocgo -o ./app .'
+                sh 'curl -u admin:admin http://51.250.67.193:8081/repository/mission3/ --upload-file /app .'
+            }
+        }
+    }
+}
+```
+
+**<ins>Build go to Nexus<ins>**
+
+![alt text](https://raw.githubusercontent.com/Kovrei/8-02/main/screenshots/jnk_log.PNG)
+
+**<ins>My browse repository in Nexus <ins>**
+
+![alt text](https://raw.githubusercontent.com/Kovrei/8-02/main/screenshots/nxs_result.PNG)
+
